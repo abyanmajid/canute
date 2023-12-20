@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import Footer from "@/components/partials/Footer";
+import BackgroundlessNavbar from "@/components/partials/Navbar";
 
 export const metadata: Metadata = {
   title: "Canute",
@@ -17,8 +17,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        <Navbar />
+      <body className="bg-black">
+        <BackgroundlessNavbar />
         <main className="relative overflow-hidden">{children}</main>
         <Footer />
       </body>
