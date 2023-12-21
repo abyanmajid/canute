@@ -156,8 +156,16 @@ body {
   scrollbar-width: none; /* Firefox */
 }
 
-.bg-hero {
-  background-image: url("/hero-background.png");
+.bg-home-page {
+  background-image: url("/home-page-background.png");
+}
+
+.bg-create-page {
+  background-image: url("/create-page-background.png")
+}
+
+.bg-about-page {
+  background-image: url("/about-page-background.png")
 }
 
 .separator {
