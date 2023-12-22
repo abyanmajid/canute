@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation";
+
 export default function Quiz() {
-    return <h1>Quiz</h1>
+  return redirect("/");
 }

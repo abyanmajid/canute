@@ -1,5 +1,5 @@
 export default interface Params {
     params: {
-        slug: string
+        quizCode: string
     }
 }
