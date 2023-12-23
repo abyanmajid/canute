@@ -23,6 +23,11 @@ const questionSchema = new Schema(
       type: String,
       required: [true, "Correct answer is required!"],
     },
+    graded: {
+      type: Boolean,
+      required: [true, "Grading is required!"],
+      default: true,
+    }
   },
 );
 

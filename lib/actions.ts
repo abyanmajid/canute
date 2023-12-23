@@ -35,3 +35,35 @@ export async function createQuiz(
     password,
   });
 }
+
+export async function getQuizByFetch(quizId: string) {
+  try {
+    const res = await fetch(`http://localhost:3000/api/quiz/${quizId}`, {
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch quizz");
+    }
+
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getQuestionsByFetch(quizId: string) {
+  try {
+    const res = await fetch(`http://localhost:3000/api/quiz/${quizId}/play`, {
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch quizz");
+    }
+
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+}

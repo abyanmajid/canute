@@ -29,7 +29,7 @@ export async function DELETE(request: any, { params }: Params) {
 
 export async function PUT(request: any, { params }: Params) {
   const { quizId, questionId } = params;
-  const { newQtype, newQuestion, newOptions, newAnswer, newTime } =
+  const { newQtype, newQuestion, newOptions, newAnswer, newGraded } =
     await request.json();
   await connectMongoDB();
   await Quiz.updateOne(
@@ -40,7 +40,7 @@ export async function PUT(request: any, { params }: Params) {
         "questions.$.question": newQuestion,
         "questions.$.options": newOptions,
         "questions.$.answer": newAnswer,
-        "questions.$.time": newTime,
+        "questions.$.graded": newGraded,
       },
     }
   );

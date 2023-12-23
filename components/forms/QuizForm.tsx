@@ -8,16 +8,16 @@ interface Props {
 
 export default function QuizForm({ questions }: Props) {
   async function fetchAnswers(prevState: any, formData: FormData) {
-    const results = []
+    const results = [];
     for (let i = 0; i < questions.length; i++) {
-      let answer = formData.get(`q${i}`)
+      let answer = formData.get(`q${i}`);
       if (answer === null) {
-        answer = ""
+        answer = "";
       }
 
-      let correct = false
+      let correct = false;
       if (answer === questions[i].answer) {
-        correct = true
+        correct = true;
       }
 
       let result = {
@@ -25,12 +25,13 @@ export default function QuizForm({ questions }: Props) {
         question: questions[i].question,
         options: questions[i].options,
         correct_answer: questions[i].answer,
+        graded: questions[i].graded,
         answer: answer,
-        correct: correct
-      }
-      results.push(result)
+        correct: correct,
+      };
+      results.push(result);
     }
-    console.log(results)
+    console.log(results);
   }
 
   const [state, formAction] = useFormState(fetchAnswers, null);
@@ -40,7 +41,14 @@ export default function QuizForm({ questions }: Props) {
       {questions.map((question: any, questionIndex: any) => (
         <div key={questionIndex} className="mb-8">
           <h3 className="text-lg font-semibold text-white">
-            Question {questionIndex + 1}
+            Question {questionIndex + 1}{" "}
+            {question.graded === true ? (
+              ""
+            ) : (
+              <mark className="px-2 text-white bg-purple-600 rounded-xl">
+                Not Graded
+              </mark>
+            )}
           </h3>
           <p className="text-lg font-normal text-gray-500 dark:text-gray-400 mb-6">
             {question.question}

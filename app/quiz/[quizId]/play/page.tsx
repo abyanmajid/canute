@@ -1,42 +1,13 @@
 import { Params } from "@/lib/constants";
 import QuizForm from "@/components/forms/QuizForm";
-
-async function getQuizById(quizId: string) {
-  try {
-    const res = await fetch(`http://localhost:3000/api/quiz/${quizId}`, {
-      cache: "no-store",
-    });
-
-    if (!res.ok) {
-      throw new Error("Failed to fetch quizz");
-    }
-
-    return res.json();
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-async function getQuestionsByQuizId(quizId: string) {
-  try {
-    const res = await fetch(`http://localhost:3000/api/quiz/${quizId}/play`, {
-      cache: "no-store",
-    });
-
-    if (!res.ok) {
-      throw new Error("Failed to fetch quizz");
-    }
-
-    return res.json();
-  } catch (error) {
-    console.log(error);
-  }
-}
+import { getQuizByFetch, getQuestionsByFetch } from "@/lib/actions";
+import Timer from "@/components/partials/Timer";
 
 export default async function PlayQuiz({ params }: Params) {
   const { quizId } = params;
-  const { quiz } = await getQuizById(quizId);
-  const { questions } = await getQuestionsByQuizId(quizId);
+  const { quiz } = await getQuizByFetch(quizId);
+  const { questions } = await getQuestionsByFetch(quizId);
+  const { timeInSeconds } = quiz;
   console.log(quiz);
 
   return (
@@ -53,6 +24,7 @@ export default async function PlayQuiz({ params }: Params) {
           <QuizForm questions={questions} />
         </div>
       </div>
+      <Timer timeInSeconds={5}/>
     </section>
   );
 }

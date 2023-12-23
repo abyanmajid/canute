@@ -10,13 +10,13 @@ interface Params {
 
 export async function POST(request: any, { params }: Params) {
   const { quizId } = params;
-  const { qtype, question, options, answer, time } = await request.json();
+  const { qtype, question, options, answer, graded } = await request.json();
   const newQuestion = {
     qtype: qtype,
     question: question,
     options: options,
     answer: answer,
-    time: time,
+    graded: graded,
   };
 
   console.log(newQuestion);
