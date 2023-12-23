@@ -1,7 +1,6 @@
 import { Params } from "@/lib/constants";
 import QuizForm from "@/components/forms/QuizForm";
 import { getQuizByFetch, getQuestionsByFetch } from "@/lib/actions";
-import Timer from "@/components/partials/Timer";
 
 export default async function PlayQuiz({ params }: Params) {
   const { quizId } = params;
@@ -21,10 +20,9 @@ export default async function PlayQuiz({ params }: Params) {
             {quiz.description}
           </p>
           <hr className="h-px my-6 bg-gray-200 border-0 dark:bg-gray-700"></hr>
-          <QuizForm questions={questions} />
+          <QuizForm questions={questions} timeInSeconds={5} />
         </div>
       </div>
-      <Timer timeInSeconds={5}/>
     </section>
   );
 }
