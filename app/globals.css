@@ -181,3 +181,7 @@ body {
     margin-right: 10px;
   }
 }
+
+.purple-accent {
+  accent-color: theme('colors.purple.600');
+}

@@ -9,7 +9,7 @@ import Link from "next/link";
 
 export default function HeroForm() {
   async function fetchQuiz(prevState: any, formData: FormData) {
-    const quizCode = formData.get("quizCode");
+    const quizCode = await formData.get("quizCode");
     redirect(`/quiz/${quizCode}`)
   }
 

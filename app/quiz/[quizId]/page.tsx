@@ -1,7 +1,12 @@
-import OpenBookIcon from "@/components/icons/OpenBookIcon";
-import Params from "@/lib/constants";
+import Link from "next/link";
 
-export default function QuizSlug({ params }: Params) {
+import OpenBookIcon from "@/components/icons/OpenBookIcon";
+import {Params} from "@/lib/constants";
+import { getQuiz } from "@/lib/actions";
+
+export default async function QuizEntryPoint({ params }: Params) {
+  const quiz = await getQuiz(params.quizId);
+
   return (
     <section className="bg-center bg-no-repeat bg-about-page bg-cover h-screen">
       <div className="py-24 px-4 mx-auto max-w-screen-xl lg:py-48">
@@ -16,26 +21,28 @@ export default function QuizSlug({ params }: Params) {
             >
               <path d="M7 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm2 1H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
             </svg>
-            Kinderheim511
+            Username
           </span>
-          <h1 className="text-gray-900 dark:text-white text-3xl md:text-4xl font-extrabold mb-2">
-            Mathematics{" "}
-            <mark className="px-2 text-white bg-gradient-to-r to-pink-500 from-purple-500 rounded-xl text-xl">
-              #{params.quizCode}
+          <h1 className="text-gray-900 dark:text-white text-4xl font-extrabold mb-2">
+            {quiz.title}{" "}
+            <mark className="px-2 text-white bg-gradient-to-r to-pink-500 from-purple-500 rounded-xl text-lg">
+              {quiz.questions.length} questions
             </mark>{" "}
           </h1>
           <p className="text-lg font-normal text-gray-500 dark:text-gray-400 mb-6">
-            Static websites are now used to bootstrap lots of websites and are
-            becoming the basis for a variety of tools that even influence both
-            web designers and developers.
+            {quiz.description}
           </p>
-          <a
-            href="#"
+          <hr className="h-px my-6 bg-gray-200 border-0 dark:bg-gray-700"></hr>
+          <p className="text-lg font-normal text-gray-500 dark:text-gray-400 mb-6">
+            <span className="font-semibold text-white">Time limit:</span> {quiz.time}
+          </p>
+          <Link
+            href={`/quiz/${params.quizId}/play`}
             className="inline-flex justify-center items-center py-2.5 px-5 text-base font-medium text-center text-white rounded-lg bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 dark:focus:ring-purple-900"
           >
             <OpenBookIcon />
             Play
-          </a>
+          </Link>
         </div>
       </div>
     </section>

@@ -45,7 +45,7 @@ export default function About() {
             </div>
             <blockquote className="mb-3">
               <p className="italic text-lg text-white lg:text-2xl dark:text-white font-semibold">
-                "I hear I forget. I see and I remember. I do and I understand."
+                &quot;I hear I forget. I see and I remember. I do and I understand.&quot;
               </p>
               <figcaption className="flex  mt-6 space-x-3 rtl:space-x-reverse">
                 <div className="flex items-center divide-x-2 rtl:divide-x-reverse divide-gray-500 dark:divide-gray-700">
@@ -58,8 +58,8 @@ export default function About() {
                 </div>
               </figcaption>
               <p className="italic text-lg text-white lg:text-2xl dark:text-white font-semibold mt-6">
-                "You don't learn to walk by following the rules. You learn by
-                doing, and by falling over."
+              &quot;You dont learn to walk by following the rules. You learn by
+                doing, and by falling over.&quot;
               </p>
               <figcaption className="flex  mt-6 space-x-3 rtl:space-x-reverse">
                 <div className="flex items-center divide-x-2 rtl:divide-x-reverse divide-gray-500 dark:divide-gray-700">
