@@ -27,6 +27,10 @@ const questionSchema = new Schema(
       type: Boolean,
       required: [true, "Grading is required!"],
       default: true,
+    },
+    creator: {
+      type: String,
+      required: [true, "Creator is required!"],
     }
   },
 );

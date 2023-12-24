@@ -11,13 +11,18 @@
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.1.1",
+    "bcrypt": "^5.1.1",
+    "mongodb": "^6.3.0",
     "mongoose": "^8.0.3",
     "next": "14.0.4",
+    "next-auth": "^4.24.5",
+    "profane-words": "^1.5.11",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

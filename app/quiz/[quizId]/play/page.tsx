@@ -7,7 +7,6 @@ export default async function PlayQuiz({ params }: Params) {
   const { quiz } = await getQuizByFetch(quizId);
   const { questions } = await getQuestionsByFetch(quizId);
   const { timeInSeconds } = quiz;
-  console.log(quiz);
 
   return (
     <section className="bg-center bg-no-repeat bg-about-page bg-cover h-screen overflow-y-auto">

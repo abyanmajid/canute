@@ -50,6 +50,7 @@ export default function QuizForm({ questions, timeInSeconds }: Props) {
       };
       results.push(result);
     }
+    results.push(timeInSeconds - time)
     console.log(results);
   }
 

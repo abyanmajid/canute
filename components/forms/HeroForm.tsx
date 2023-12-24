@@ -8,9 +8,10 @@ import PenIcon from "@/components/icons/PenIcon";
 import Link from "next/link";
 
 export default function HeroForm() {
+
   async function fetchQuiz(prevState: any, formData: FormData) {
     const quizCode = await formData.get("quizCode");
-    redirect(`/quiz/${quizCode}`)
+    redirect(`/quiz/${quizCode}`);
   }
 
   const [state, formAction] = useFormState(fetchQuiz, null);

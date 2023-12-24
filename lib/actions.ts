@@ -2,6 +2,8 @@
 
 import connectMongoDB from "@/lib/mongodb";
 import Quiz from "@/models/quiz";
+import User from "@/models/user";
+import bcrypt from "bcrypt";
 
 export async function getQuiz(quizId: string) {
   await connectMongoDB();
@@ -66,4 +68,16 @@ export async function getQuestionsByFetch(quizId: string) {
   } catch (error) {
     console.log(error);
   }
+}
+
+export async function createUser(
+  username: string,
+  email: string,
+  password: string,
+  typeAccount: string,
+  banned: boolean
+) {
+  const hashedPassword = await bcrypt.hash(password, 12);
+  await connectMongoDB();
+  await User.create({ username, email, hashedPassword, typeAccount, banned });
 }
