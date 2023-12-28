@@ -50,7 +50,7 @@ export default async function QuizQuestions({ params }: Params) {
 
   return (
     <section className="bg-center bg-no-repeat bg-about-page bg-cover h-screen overflow-y-auto">
-      <div className="py-24 px-4 mx-auto max-w-screen-xl lg:py-48">
+      <div className="py-24 px-4 mx-auto max-w-screen-xl">
         <div className="border-gray-500  bg-gray-800 bg-opacity-35 border rounded-lg p-8 md:p-12 mb-8">
           <Link href={`/user/${user._id}`}>
             <span className="bg-purple-100 text-purple-800 text-sm font-medium inline-flex items-center px-2.5 py-1 rounded-md dark:bg-gray-700 dark:text-purple-400 mb-2">
@@ -75,6 +75,7 @@ export default async function QuizQuestions({ params }: Params) {
           <p className="text-lg font-normal text-gray-500 dark:text-gray-400 mb-6">
             {quiz.description}
           </p>
+          <div className="flex items-center">
           <Link
             href={`/quiz/${quiz._id}/questions/create`}
             className="mr-2 inline-flex justify-center items-center py-2.5 px-3 text-base font-medium text-white bg-gradient-to-r to-pink-500 from-purple-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-transparent rounded-lg text-center"
@@ -82,6 +83,13 @@ export default async function QuizQuestions({ params }: Params) {
             <PlusIcon />
             Add New Question
           </Link>
+          <Link
+            href={`/quiz/${quiz._id}`}
+            className="mr-2 inline-flex justify-center items-center py-2.5 px-3 text-base font-medium text-white bg-purple-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-transparent rounded-lg text-center"
+          >
+            Go Back
+          </Link>
+          </div>
           <hr className="h-px my-6 bg-gray-200 border-0 dark:bg-gray-700"></hr>
 
           {questions.map((question: any, questionIndex: any) => (

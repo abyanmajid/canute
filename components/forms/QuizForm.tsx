@@ -33,7 +33,7 @@ export default function QuizForm({
   if (
     (loggedIn !== true && loggedIn !== false) ||
     user === "" ||
-    user !== visitorId ||
+    (loggedIn === true && user !== visitorId) ||
     (loggedIn === true && visitorId === null)
   ) {
     notFound();
@@ -86,6 +86,7 @@ export default function QuizForm({
         numOfGradedQuestions += 1;
       }
     }
+    
     await saveQuizResult(
       quizId,
       loggedIn,

@@ -44,3 +44,28 @@ export const formatTimeLong = (input: string) => {
 
   return formattedString.trim();
 };
+
+export const formatSecondsToTimeLong = (inputSeconds: number) => {
+  const hours = Math.floor(inputSeconds / 3600);
+  const minutes = Math.floor((inputSeconds % 3600) / 60);
+  const seconds = inputSeconds % 60;
+
+  let formattedString = "";
+
+  // Add hours part only if hours are present and more than 0
+  if (hours > 0) {
+    formattedString += `${hours}h `;
+  }
+
+  // Add minutes part only if minutes are present or if there are hours
+  if (minutes > 0 || hours > 0) {
+    formattedString += `${minutes}m `;
+  }
+
+  // Add seconds part only if seconds are present
+  if (seconds > 0) {
+    formattedString += `${seconds}s`;
+  }
+
+  return formattedString.trim();
+};

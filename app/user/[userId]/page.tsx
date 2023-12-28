@@ -59,6 +59,7 @@ export default async function Profile({ params }: Params) {
     const quiz = await Quiz.findById({ _id: quizId });
     quizArray.push(quiz);
   }
+  quizArray.reverse();
 
   return (
     <section className="bg-center bg-no-repeat bg-about-page bg-cover h-screen overflow-y-auto">

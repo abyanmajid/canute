@@ -20,12 +20,11 @@ export default function QuizEntryForm({
   const [incorrectPassword, setIncorrectPassword] = useState(false);
   const isGuest = visitorId === null;
 
-
   async function fetchPassword(prevState: any, formData: FormData) {
     const quizPassword = await formData.get("quizPassword");
-    if (quizPassword === quiz.password) {
-      const loggedIn = isGuest ? false : true
-      const user = loggedIn ? visitorId : await formData.get("guestName")
+    if (quizPassword === quiz.password || quiz.visibility !== "restricted") {
+      const loggedIn = isGuest ? false : true;
+      const user = loggedIn ? visitorId : await formData.get("guestName");
       redirect(`/quiz/${quiz._id}/play?loggedIn=${loggedIn}&user=${user}`);
     } else {
       setIncorrectPassword(true);
@@ -52,27 +51,33 @@ export default function QuizEntryForm({
               name="guestName"
               className="bg-gray-50 mb-4 border dark:bg-opacity-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-600 focus:border-purple-600 block w-72 p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500 focus:outline-none"
               placeholder="Enter your username here..."
+              maxLength={32}
               required
             />
           </div>
         ) : (
           ""
         )}
-
-        <label
-          htmlFor="quizPassword"
-          className="block mb-2 text-sm font-medium text-yellow-500"
-        >
-          This quiz is password-locked!
-        </label>
-        <input
-          type="password"
-          id="quizPassword"
-          name="quizPassword"
-          className="bg-gray-50 border dark:bg-opacity-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-600 focus:border-purple-600 block w-72 p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500 focus:outline-none"
-          placeholder="Enter the password here..."
-          required
-        />
+        {quiz.visibility === "restricted" ? (
+          <div>
+            <label
+              htmlFor="quizPassword"
+              className="block mb-2 text-sm font-medium text-yellow-500"
+            >
+              This quiz is password-locked!
+            </label>
+            <input
+              type="password"
+              id="quizPassword"
+              name="quizPassword"
+              className="bg-gray-50 border dark:bg-opacity-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-600 focus:border-purple-600 block w-72 p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500 focus:outline-none"
+              placeholder="Enter the password here..."
+              required
+            />
+          </div>
+        ) : (
+          ""
+        )}
         {incorrectPassword ? (
           <p className="mt-1 text-sm text-red-500" id="file_input_help">
             The password you entered is incorrect!

@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { number } from "zod";
+import { v4 as uuidv4 } from "uuid";
 
 const questionSchema = new Schema({
   qtype: {
@@ -42,6 +42,10 @@ const resultSchema = new Schema({
     default: "",
     required: [true, "Username is required!"],
   },
+  registeredUsername: {
+    type: String,
+    default: ""
+  },
   results: {
     type: Array,
     required: [true, "Array of results is required!"],
@@ -62,6 +66,10 @@ const resultSchema = new Schema({
     type: Boolean,
     default: false
   },
+  passkey: {
+    type: String,
+    default: uuidv4()
+  }
 });
 
 const quizSchema = new Schema(

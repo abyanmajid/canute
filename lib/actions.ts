@@ -6,6 +6,7 @@ import User from "@/models/user";
 import bcrypt from "bcrypt";
 import { generateRandomString } from "./generateCode";
 import { redirect } from "next/navigation";
+import { v4 as uuidv4 } from "uuid";
 
 export async function getQuiz(quizId: string) {
   await connectMongoDB();
@@ -18,6 +19,21 @@ export async function getQuestions(quizId: string) {
   await connectMongoDB();
   const quiz: any = await Quiz.findOne({ _id: quizId });
   return quiz ? quiz.questions : [];
+}
+
+export async function getResult(
+  quizId: string,
+  loggedIn: boolean,
+  user: string,
+  passkey: string
+) {
+  "use server";
+  await connectMongoDB();
+  const result = await Quiz.findOne(
+    { _id: quizId },
+    { leaderboard: { loggedIn: loggedIn, user: user, passkey: passkey } }
+  );
+  return result;
 }
 
 export async function createQuiz(
@@ -237,6 +253,9 @@ export async function saveQuizResult(
   numOfGradedQuestions: number,
   timeTakenInSeconds: number
 ) {
+  const registeredUser = (loggedIn ? await User.findById(user) : "")
+  const registeredUsername = (registeredUser !== "" ? registeredUser.username : "")
+  const passkey = uuidv4();
   await connectMongoDB();
   await Quiz.findByIdAndUpdate(
     { _id: quizId },
@@ -245,17 +264,45 @@ export async function saveQuizResult(
         leaderboard: {
           loggedIn: loggedIn,
           user: user,
+          registeredUsername: registeredUsername,
           results: results,
           numOfCorrectAnswers: numOfCorrectAnswers,
           numOfGradedQuestions: numOfGradedQuestions,
           timeTakenInSeconds: timeTakenInSeconds,
+          showOnLeaderboard: false,
+          passkey: passkey,
         },
       },
     }
   );
-  console.log(
-    results,
-    `${numOfCorrectAnswers}/${numOfGradedQuestions}`,
-    timeTakenInSeconds
+  redirect(
+    `/quiz/${quizId}/results?loggedIn=${loggedIn}&user=${user}&passkey=${passkey}`
   );
+}
+
+export async function getVisitorUser(
+  visitorEmail: string,
+  visitorTypeAccount: string
+) {
+  "use server";
+  await connectMongoDB();
+  const visitorUser = await User.findOne({
+    email: visitorEmail,
+    typeAccount: visitorTypeAccount,
+  });
+  return visitorUser;
+}
+
+export async function postOnLeaderboard(quizId: string, resultsId: string) {
+  "use server";
+  await connectMongoDB();
+  await Quiz.updateOne(
+    { _id: quizId, "leaderboard._id": resultsId },
+    {
+      $set: {
+        "leaderboard.$.showOnLeaderboard": true,
+      },
+    }
+  );
+  await redirect(`/quiz/${quizId}`)
 }
