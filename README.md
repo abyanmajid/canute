@@ -3,7 +3,7 @@ Quiz-making web application built with Next.js, Tailwind CSS, and MongoDB Atlas
 
 ***IN DEVELOPMENT***: Dec 2023-Present
 
-## Routes
+## List of Routes
 
 - **`/`** : Renders the landing page.
   - *Accessibility* : Everyone.
