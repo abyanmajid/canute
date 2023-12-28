@@ -1,4 +1,4 @@
-export const formatTime = (seconds: number): string => {
+export const formatTimeShort = (seconds: number): string => {
   // Debugging log
   console.log("Seconds:", seconds);
 
@@ -16,4 +16,31 @@ export const formatTime = (seconds: number): string => {
   const secondsPadded = String(sec).padStart(2, "0");
 
   return `${hoursPadded}:${minutesPadded}:${secondsPadded}`;
+};
+
+export const formatTimeLong = (input: string) => {
+  const hourRegex = /(\d+)h/;
+  const minuteRegex = /(\d+)m/;
+
+  const hourMatch = input.match(hourRegex);
+  const minuteMatch = input.match(minuteRegex);
+
+  let formattedString = "";
+
+  // Add hours part only if hours are present and more than 0
+  if (hourMatch && parseInt(hourMatch[1], 10) > 0) {
+    const hours = parseInt(hourMatch[1], 10);
+    formattedString += `${hours} hour${hours !== 1 ? "s" : ""} `;
+  }
+
+  // Add minutes part only if minutes are present
+  if (minuteMatch) {
+    const minutes = parseInt(minuteMatch[1], 10);
+    if (formattedString.length > 0) {
+      formattedString += "and ";
+    }
+    formattedString += `${minutes} min`;
+  }
+
+  return formattedString.trim();
 };

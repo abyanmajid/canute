@@ -2,17 +2,42 @@
 
 import { useFormState } from "react-dom";
 import Timer from "@/components/partials/Timer";
-import { formatTime } from "@/lib/formatTime";
 import { useState, useEffect, useRef } from "react";
+import { notFound, redirect, useSearchParams } from "next/navigation";
+import { saveQuizResult } from "@/lib/actions";
+import { stringToBoolean } from "@/lib/stringToBoolean";
 
 interface Props {
+  quizId: string;
   questions: any;
   timeInSeconds: number;
+  visitorId: string | null;
 }
 
-export default function QuizForm({ questions, timeInSeconds }: Props) {
+export default function QuizForm({
+  quizId,
+  questions,
+  timeInSeconds,
+  visitorId,
+}: Props) {
   const buttonRef: any = useRef();
   const [time, setTime] = useState<number>(timeInSeconds);
+
+  const queryParams = useSearchParams();
+  if (!queryParams.has("loggedIn") || !queryParams.has("user")) {
+    notFound();
+  }
+  const loggedIn = stringToBoolean(queryParams.get("loggedIn") as string);
+  const user = queryParams.get("user") as string;
+
+  if (
+    (loggedIn !== true && loggedIn !== false) ||
+    user === "" ||
+    user !== visitorId ||
+    (loggedIn === true && visitorId === null)
+  ) {
+    notFound();
+  }
 
   useEffect(() => {
     if (time > 0) {
@@ -22,14 +47,14 @@ export default function QuizForm({ questions, timeInSeconds }: Props) {
 
       return () => clearInterval(timerId);
     } else {
-      buttonRef.current.click()
+      buttonRef.current.click();
     }
   }, [time]);
 
   async function fetchAnswers(prevState: any, formData: FormData) {
     const results = [];
     for (let i = 0; i < questions.length; i++) {
-      let answer = formData.get(`q${i}`);
+      let answer = await formData.get(`q${i}`);
       if (answer === null) {
         answer = "";
       }
@@ -50,8 +75,26 @@ export default function QuizForm({ questions, timeInSeconds }: Props) {
       };
       results.push(result);
     }
-    results.push(timeInSeconds - time)
-    console.log(results);
+    const timeTakenInSeconds = timeInSeconds - time;
+    let numOfCorrectAnswers = 0;
+    let numOfGradedQuestions = 0;
+    for (let result of results) {
+      if (result.graded === true) {
+        if (result.correct === true) {
+          numOfCorrectAnswers += 1;
+        }
+        numOfGradedQuestions += 1;
+      }
+    }
+    await saveQuizResult(
+      quizId,
+      loggedIn,
+      user,
+      results,
+      numOfCorrectAnswers,
+      numOfGradedQuestions,
+      timeTakenInSeconds
+    );
   }
 
   const [state, formAction] = useFormState(fetchAnswers, null);
@@ -60,7 +103,10 @@ export default function QuizForm({ questions, timeInSeconds }: Props) {
     <>
       <form action={formAction}>
         {questions.map((question: any, questionIndex: any) => (
-          <div key={questionIndex} className="mb-8">
+          <div
+            key={questionIndex}
+            className="mb-8 border-gray-500  bg-gray-800 bg-opacity-35 border rounded-lg p-6"
+          >
             <h3 className="text-lg font-semibold text-white">
               Question {questionIndex + 1}{" "}
               {question.graded === true ? (

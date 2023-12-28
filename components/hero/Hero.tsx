@@ -1,6 +1,30 @@
 import HeroForm from "@/components/forms/HeroForm";
+import { getServerSession } from "next-auth";
+import { options } from "@/app/api/auth/[...nextauth]/options";
+import User from "@/models/user";
+import connectMongoDB from "@/lib/mongodb";
 
-export default function Hero() {
+export default async function Hero() {
+  // @ts-ignore
+  const session = await getServerSession(options);
+  // @ts-ignore
+  let userId = null;
+  if (session) {
+    // @ts-ignore
+    const role = session?.user?.role;
+    const email = session?.user?.email;
+    let typeAccount = "google";
+    if (role === "GitHub user" || role === "admin") {
+      typeAccount = "github";
+    }
+    await connectMongoDB();
+    const user = await User.findOne({
+      email: email,
+      typeAccount: typeAccount,
+    });
+    // @ts-ignore
+    userId = user._id.toString();
+  }
   return (
     <section className="bg-center bg-no-repeat bg-home-page bg-cover h-screen">
       <div className="px-4 mx-auto max-w-screen-xl text-center py-32 lg:py-64">
@@ -20,7 +44,7 @@ export default function Hero() {
           .
         </p>
         <div className="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
-          <HeroForm />
+          <HeroForm userId={userId}/>
         </div>
       </div>
     </section>

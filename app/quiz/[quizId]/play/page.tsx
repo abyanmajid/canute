@@ -1,12 +1,46 @@
 import { Params } from "@/lib/constants";
 import QuizForm from "@/components/forms/QuizForm";
 import { getQuizByFetch, getQuestionsByFetch } from "@/lib/actions";
+import { notFound, redirect } from "next/navigation";
+import User from "@/models/user";
+import { getServerSession } from "next-auth";
+import { options } from "@/app/api/auth/[...nextauth]/options";
 
 export default async function PlayQuiz({ params }: Params) {
   const { quizId } = params;
   const { quiz } = await getQuizByFetch(quizId);
   const { questions } = await getQuestionsByFetch(quizId);
   const { timeInSeconds } = quiz;
+
+  if (questions.length === 0) {
+    redirect(`/quiz/${quizId}`);
+  }
+
+  // @ts-ignore
+  const session = await getServerSession(options);
+  // @ts-ignore
+  let visitorId: null | string = null;
+  if (session) {
+    // @ts-ignore
+    const visitorRole = session?.user?.role;
+    const visitorEmail = session?.user?.email;
+    let visitorTypeAccount = "google";
+    if (visitorRole === "GitHub user" || visitorRole === "admin") {
+      visitorTypeAccount = "github";
+    }
+    const visitorUser = await User.findOne({
+      email: visitorEmail,
+      typeAccount: visitorTypeAccount,
+    });
+    // @ts-ignore
+    visitorId = visitorUser._id.toString();
+  }
+
+  if (quiz.visibility === "myself") {
+    if (visitorId !== quiz.creatorId) {
+      notFound();
+    }
+  }
 
   return (
     <section className="bg-center bg-no-repeat bg-about-page bg-cover h-screen overflow-y-auto">
@@ -19,7 +53,12 @@ export default async function PlayQuiz({ params }: Params) {
             {quiz.description}
           </p>
           <hr className="h-px my-6 bg-gray-200 border-0 dark:bg-gray-700"></hr>
-          <QuizForm questions={questions} timeInSeconds={5} />
+          <QuizForm
+            quizId={quizId}
+            questions={questions}
+            timeInSeconds={timeInSeconds}
+            visitorId={visitorId}
+          />
         </div>
       </div>
     </section>

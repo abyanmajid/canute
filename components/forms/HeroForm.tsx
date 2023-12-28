@@ -7,7 +7,7 @@ import OpenBookIcon from "@/components/icons/OpenBookIcon";
 import PenIcon from "@/components/icons/PenIcon";
 import Link from "next/link";
 
-export default function HeroForm() {
+export default function HeroForm({userId}: {userId: string}) {
 
   async function fetchQuiz(prevState: any, formData: FormData) {
     const quizCode = await formData.get("quizCode");
@@ -39,15 +39,23 @@ export default function HeroForm() {
       </form>
 
       <div className="separator"></div>
-      <Link href="/quiz/create">
+      {userId !== null ?       <Link href={`/user/${userId}`}>
         <button
-          type="submit"
+          type="button"
           className="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-transparent rounded-lg text-center"
         >
           Create
           <PenIcon />
         </button>
-      </Link>
+      </Link> : <Link href="/api/auth/signin?callbackUrl=/">
+        <button
+          type="button"
+          className="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-transparent rounded-lg text-center"
+        >
+          Create
+          <PenIcon />
+        </button>
+      </Link>}
     </>
   );
 }

@@ -4,6 +4,8 @@ import connectMongoDB from "@/lib/mongodb";
 import Quiz from "@/models/quiz";
 import User from "@/models/user";
 import bcrypt from "bcrypt";
+import { generateRandomString } from "./generateCode";
+import { redirect } from "next/navigation";
 
 export async function getQuiz(quizId: string) {
   await connectMongoDB();
@@ -12,13 +14,59 @@ export async function getQuiz(quizId: string) {
 }
 
 export async function getQuestions(quizId: string) {
+  "use server";
   await connectMongoDB();
   const quiz: any = await Quiz.findOne({ _id: quizId });
   return quiz ? quiz.questions : [];
 }
 
 export async function createQuiz(
-  code: string,
+  username: string,
+  title: string,
+  description: string,
+  time: string,
+  timeInSeconds: number,
+  visibility: string,
+  password: string,
+  email: string,
+  typeAccount: string
+) {
+  await connectMongoDB();
+  username = username.replace(/ /g, "-");
+  let code = username + "#" + (await generateRandomString(6));
+  const codeExists = await Quiz.exists({ code: code });
+  while (codeExists) {
+    code = username + "#" + (await generateRandomString(6));
+  }
+  const temporaryCode = "";
+  const questions: object[] = [];
+  const leaderboard: object[] = [];
+  const user = await User.findOne({ email: email, typeAccount: typeAccount });
+  const creatorId = user._id;
+  await Quiz.create({
+    code,
+    temporaryCode,
+    title,
+    description,
+    time,
+    timeInSeconds,
+    visibility,
+    password,
+    questions,
+    leaderboard,
+    creatorId,
+  });
+  const quiz = await Quiz.findOne({ code: code, creatorId: creatorId });
+  const quizId = quiz._id;
+  await User.findByIdAndUpdate(
+    { _id: creatorId },
+    { $push: { quizzes: quizId } }
+  );
+  redirect(`/quiz/${quizId}`);
+}
+
+export async function editQuiz(
+  quizId: string,
   title: string,
   description: string,
   time: string,
@@ -27,15 +75,19 @@ export async function createQuiz(
   password: string
 ) {
   await connectMongoDB();
-  await Quiz.create({
-    code,
-    title,
-    description,
-    time,
-    timeInSeconds,
-    visibility,
-    password,
-  });
+  await Quiz.findByIdAndUpdate(
+    { _id: quizId },
+    {
+      $set: {
+        title: title,
+        description: description,
+        time: time,
+        timeInSeconds: timeInSeconds,
+        visibility: visibility,
+        password: password,
+      },
+    }
+  );
 }
 
 export async function getQuizByFetch(quizId: string) {
@@ -80,4 +132,130 @@ export async function createUser(
   const hashedPassword = await bcrypt.hash(password, 12);
   await connectMongoDB();
   await User.create({ username, email, hashedPassword, typeAccount, banned });
+}
+
+export async function createQuestion(
+  quizId: string,
+  qtype: string,
+  question: string,
+  options: any,
+  answer: string,
+  graded: boolean
+) {
+  await connectMongoDB();
+  if (qtype === "MCQ") {
+    await Quiz.findByIdAndUpdate(
+      { _id: quizId.toString() },
+      {
+        $push: {
+          questions: {
+            qtype: qtype,
+            question: question,
+            options: options,
+            answer: answer,
+            graded: graded,
+          },
+        },
+      }
+    );
+  } else if (qtype === "Typed Answer") {
+    await Quiz.findByIdAndUpdate(
+      { _id: quizId.toString() },
+      {
+        $push: {
+          questions: {
+            qtype: qtype,
+            question: question,
+            options: [],
+            answer: answer,
+            graded: graded,
+          },
+        },
+      }
+    );
+  }
+}
+
+export async function editQuestion(
+  quizId: string,
+  questionId: string,
+  qtype: string,
+  question: string,
+  options: any,
+  answer: string,
+  graded: boolean
+) {
+  await connectMongoDB();
+  if (qtype === "MCQ") {
+    await Quiz.updateOne(
+      { _id: quizId, "questions._id": questionId },
+      {
+        $set: {
+          "questions.$.qtype": qtype,
+          "questions.$.question": question,
+          "questions.$.options": options,
+          "questions.$.answer": answer,
+          "questions.$.graded": graded,
+        },
+      }
+    );
+  } else if (qtype === "Typed Answer") {
+    await Quiz.updateOne(
+      { _id: quizId, "questions._id": questionId },
+      {
+        $set: {
+          "questions.$.qtype": qtype,
+          "questions.$.question": question,
+          "questions.$.options": [],
+          "questions.$.answer": answer,
+          "questions.$.graded": graded,
+        },
+      }
+    );
+  }
+}
+
+export async function deleteQuestion(questionId: string, quizId: string) {
+  "use server";
+  await connectMongoDB();
+  await Quiz.updateOne(
+    { _id: quizId },
+    {
+      $pull: {
+        questions: { _id: questionId },
+      },
+    }
+  );
+}
+
+export async function saveQuizResult(
+  quizId: string,
+  loggedIn: boolean,
+  user: string,
+  results: any,
+  numOfCorrectAnswers: number,
+  numOfGradedQuestions: number,
+  timeTakenInSeconds: number
+) {
+  await connectMongoDB();
+  await Quiz.findByIdAndUpdate(
+    { _id: quizId },
+    {
+      $push: {
+        leaderboard: {
+          loggedIn: loggedIn,
+          user: user,
+          results: results,
+          numOfCorrectAnswers: numOfCorrectAnswers,
+          numOfGradedQuestions: numOfGradedQuestions,
+          timeTakenInSeconds: timeTakenInSeconds,
+        },
+      },
+    }
+  );
+  console.log(
+    results,
+    `${numOfCorrectAnswers}/${numOfGradedQuestions}`,
+    timeTakenInSeconds
+  );
 }

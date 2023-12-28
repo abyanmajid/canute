@@ -3,33 +3,32 @@
 import PenIcon from "@/components/icons/PenIcon";
 import { useState } from "react";
 import { useFormState } from "react-dom";
-import { createQuiz } from "@/lib/actions";
+import { editQuiz } from "@/lib/actions";
 import { convertToSeconds } from "@/lib/convertToSeconds";
 import { redirect } from "next/navigation";
-import Link from "next/link"
+import Link from "next/link";
 
-interface Props {
-  username: any;
-  email: any;
-  typeAccount: string;
-}
+export default function EditQuizForm({ quizJSON }: { quizJSON: any }) {
+  const quiz = JSON.parse(quizJSON);
+  console.log(quiz)
+  const [title, setTitle] = useState(quiz.title);
+  const [description, setDescription] = useState(quiz.description);
+  const [time, setTime] = useState(quiz.time);
+  const [visibility, setVisibility] = useState(quiz.visibility);
 
-export default function CreateQuizForm({
-  username,
-  email,
-  typeAccount,
-}: Props) {
-  const [visibility, setVisibility] = useState("everyone");
-  const [time, setTime] = useState("1h 0m");
-
-  function visibilityChangeHandler(event: any) {
-    const newVisibility = event.target.value;
-    setVisibility(newVisibility);
+  function handleTitleChange(event: any) {
+    setTitle(event.target.value);
   }
 
-  function timeChangeHandler(event: any) {
-    const newTime = event.target.value;
-    setTime(newTime);
+  function handleDescriptionChange(event: any) {
+    setDescription(event.target.value);
+  }
+
+  function handleTimeChange(event: any) {
+    setTime(event.target.value);
+  }
+  function handleVisibilityChange(event: any) {
+    setVisibility(event.target.value);
   }
 
   async function fetchQuizDetails(prevState: any, formData: FormData) {
@@ -42,17 +41,16 @@ export default function CreateQuizForm({
       (await visibility) === "restricted"
         ? (formData.get("password") as string)
         : "";
-    await createQuiz(
-      username,
+    await editQuiz(
+      quiz._id.toString(),
       title,
       description,
       time,
       timeInSeconds,
       visibility.toLowerCase(),
-      password,
-      email,
-      typeAccount
+      password
     );
+    redirect(`/quiz/${quiz._id.toString()}`);
   }
 
   const [state, formAction] = useFormState(fetchQuizDetails, null);
@@ -69,6 +67,8 @@ export default function CreateQuizForm({
               Title
             </label>
             <input
+              onChange={handleTitleChange}
+              value={title}
               type="text"
               name="title"
               id="title"
@@ -85,6 +85,8 @@ export default function CreateQuizForm({
               Description
             </label>
             <textarea
+              onChange={handleDescriptionChange}
+              value={description}
               id="description"
               name="description"
               className="dark:bg-opacity-50 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-purple-500 focus:border-purple-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500 focus:outline-none"
@@ -104,7 +106,7 @@ export default function CreateQuizForm({
                 name="time"
                 className="bg-gray-50 border dark:bg-opacity-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-300 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500 focus:outline-none"
                 value={time}
-                onChange={timeChangeHandler}
+                onChange={handleTimeChange}
               >
                 <option value="0h 5m" className="bg-gray-800">
                   5 minutes
@@ -162,7 +164,7 @@ export default function CreateQuizForm({
                 name="visibility"
                 className="bg-gray-50 border dark:bg-opacity-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-300 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500 focus:outline-none"
                 value={visibility}
-                onChange={visibilityChangeHandler}
+                onChange={handleVisibilityChange}
               >
                 <option value="everyone" className="bg-gray-800">
                   Everyone
@@ -199,15 +201,15 @@ export default function CreateQuizForm({
           type="submit"
           className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-purple-700 rounded-lg focus:ring-4 focus:ring-purple-200 dark:focus:ring-transparent hover:bg-purple-800"
         >
-          Create <PenIcon />
+          Edit <PenIcon />
         </button>
-        <Link href="/">
-        <button
-          type="button"
-          className="text-purple-700 mx-2 hover:text-white border border-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-800 dark:hover:border-transparent dark:focus:ring-transparent"
-        >
-          Cancel
-        </button>
+        <Link href={`/user/${quiz.creatorId}`}>
+          <button
+            type="button"
+            className="text-purple-700 mx-2 hover:text-white border border-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-800 dark:hover:border-transparent dark:focus:ring-transparent"
+          >
+            Cancel
+          </button>
         </Link>
       </form>
     </>
