@@ -17,7 +17,7 @@ Quiz-making web application built with Next.js, Tailwind CSS, and MongoDB Atlas
 - **`/quiz/<quizId>/results`** : Renders the results of the player's performance in the quiz.
   - *Query string*: `?loggedIn=<boolean>&user=<string>&passkey=<string>`
   - *Accessibility* : The player.
-**`/quiz/<quizId>/create`** : Renders a form to create a new quiz.
+- **`/quiz/<quizId>/create`** : Renders a form to create a new quiz.
   - *Accessibility* : Every signed-in User.
 - **`/quiz/<quizId>/edit`** : Renders a form to edit the details of a quiz.
   - *Accessibility* : The creator of the quiz.
