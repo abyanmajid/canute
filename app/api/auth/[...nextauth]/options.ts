@@ -68,6 +68,7 @@ export const options = {
               typeAccount: typeAccount,
             }),
           });
+          new Promise((resolve) => setTimeout(resolve, 5000));
           if (res.ok) {
             return user;
           }
