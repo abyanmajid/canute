@@ -56,7 +56,7 @@ export default function GetResultParams({
   }
 
   return (
-    <section className="bg-center bg-no-repeat bg-about-page bg-cover h-screen overflow-y-auto">
+    <section className="bg-center bg-no-repeat bg-quiz-results-page bg-cover h-screen overflow-y-auto">
       <div className="py-24 px-4 mx-auto max-w-screen-xl">
         <div className="border-gray-500  bg-gray-800 bg-opacity-35 border rounded-lg p-8 md:p-12 mb-8">
           <div className="text-center">

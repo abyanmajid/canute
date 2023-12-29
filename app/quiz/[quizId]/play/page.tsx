@@ -32,6 +32,11 @@ export default async function PlayQuiz({ params }: Params) {
       email: visitorEmail,
       typeAccount: visitorTypeAccount,
     });
+
+    if (visitorUser.banned) {
+      redirect("/banned")
+    }
+
     // @ts-ignore
     visitorId = visitorUser._id.toString();
   }
@@ -43,7 +48,7 @@ export default async function PlayQuiz({ params }: Params) {
   }
 
   return (
-    <section className="bg-center bg-no-repeat bg-about-page bg-cover h-screen overflow-y-auto">
+    <section className="bg-center bg-no-repeat bg-play-quiz-page bg-cover h-screen overflow-y-auto">
       <div className="py-24 px-4 mx-auto max-w-screen-xl lg:py-28">
         <div className="border-gray-500  bg-gray-800 bg-opacity-35 border rounded-lg p-8 md:p-12 mb-8">
           <h1 className="text-gray-900 dark:text-white text-4xl font-extrabold mb-2">

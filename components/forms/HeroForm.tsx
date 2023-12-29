@@ -6,12 +6,14 @@ import { redirect } from "next/navigation";
 import OpenBookIcon from "@/components/icons/OpenBookIcon";
 import PenIcon from "@/components/icons/PenIcon";
 import Link from "next/link";
+import {findQuiz} from "@/lib/actions"
 
 export default function HeroForm({userId}: {userId: string}) {
 
   async function fetchQuiz(prevState: any, formData: FormData) {
-    const quizCode = await formData.get("quizCode");
-    redirect(`/quiz/${quizCode}`);
+    const quizCode = await formData.get("quizCode") as string;
+    await findQuiz(quizCode)
+    // redirect(`/quiz/${quizCode}`);
   }
 
   const [state, formAction] = useFormState(fetchQuiz, null);

@@ -9,11 +9,12 @@ import OpenBookIcon from "@/components/icons/OpenBookIcon";
 import Quiz from "@/models/quiz";
 import { capitalizeFirstLetter } from "@/lib/capitalizeFirstLetter";
 import { formatTimeLong } from "@/lib/formatTime";
-import PenIcon from "@/components/icons/PenIcon";
 import EyeIcon from "@/components/icons/EyeIcon";
 import ClockIcon from "@/components/icons/ClockIcon";
 import QuestionMarkIcon from "@/components/icons/QuestionMarkIcon";
 import PlusIcon from "@/components/icons/PlusIcon";
+import CreatorButtons from "@/components/buttons/CreatorButtons"
+import {redirect} from "next/navigation"
 
 interface Params {
   params: {
@@ -46,6 +47,11 @@ export default async function Profile({ params }: Params) {
       email: visitorEmail,
       typeAccount: visitorTypeAccount,
     });
+
+    if (visitorUser.banned) {
+      redirect("/banned")
+    }
+
     // @ts-ignore
     visitorId = visitorUser._id.toString();
   }
@@ -62,7 +68,7 @@ export default async function Profile({ params }: Params) {
   quizArray.reverse();
 
   return (
-    <section className="bg-center bg-no-repeat bg-about-page bg-cover h-screen overflow-y-auto">
+    <section className="bg-center bg-no-repeat bg-user-page bg-cover h-screen overflow-y-auto">
       <div className="py-24 px-4 mx-auto max-w-screen-xl lg:py-28">
         <div className="border-gray-500  bg-gray-800 bg-opacity-35 border rounded-lg p-8 md:p-12 mb-8">
           <Image
@@ -116,7 +122,7 @@ export default async function Profile({ params }: Params) {
               ""
             )}
           </div>
-          {quizArray.map((quiz, index) => {
+          {quizArray.filter(quiz => quiz !== null).map((quiz, index) => {
             const shouldRenderQuiz =
               quiz.visibility !== "myself" || visitorId === quiz.creatorId;
 
@@ -160,17 +166,7 @@ export default async function Profile({ params }: Params) {
                     <OpenBookIcon />
                     Play
                   </Link>
-                  {visitorId === quiz.creatorId ? (
-                    <Link
-                      href={`/quiz/${quiz._id}`}
-                      className="inline-flex justify-center items-center py-2.5 px-3 text-base font-medium text-center text-white rounded-lg bg-pink-600 hover:bg-pink-700 focus:ring-4 focus:ring-pink-300 dark:focus:ring-pink-800"
-                    >
-                      Edit
-                      <PenIcon />
-                    </Link>
-                  ) : (
-                    ""
-                  )}
+                  <CreatorButtons quizId={quiz._id.toString()} visitorId={visitorId} creatorId={quiz.creatorId.toString()}/>
                 </div>
               </div>
             );

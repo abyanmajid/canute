@@ -38,8 +38,15 @@ export default async function QuizQuestions({ params }: Params) {
       email: visitorEmail,
       typeAccount: visitorTypeAccount,
     });
+
+    if (visitorUser.banned) {
+      redirect("/banned")
+    }
+
     // @ts-ignore
     visitorId = visitorUser._id.toString();
+  } else {
+    notFound();
   }
 
   if (quiz.visibility === "myself") {
@@ -49,7 +56,7 @@ export default async function QuizQuestions({ params }: Params) {
   }
 
   return (
-    <section className="bg-center bg-no-repeat bg-about-page bg-cover h-screen overflow-y-auto">
+    <section className="bg-center bg-no-repeat bg-questions-page bg-cover h-screen overflow-y-auto">
       <div className="py-24 px-4 mx-auto max-w-screen-xl">
         <div className="border-gray-500  bg-gray-800 bg-opacity-35 border rounded-lg p-8 md:p-12 mb-8">
           <Link href={`/user/${user._id}`}>

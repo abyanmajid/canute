@@ -1,23 +1,45 @@
 import CreateQuizForm from "@/components/forms/CreateQuizForm";
 import { getServerSession } from "next-auth";
 import { options } from "@/app/api/auth/[...nextauth]/options";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import connectMongoDB from "@/lib/mongodb";
+import User from "@/models/user";
 
 export default async function CreateQuiz() {
-
   // @ts-ignore
   const session = await getServerSession(options);
 
   if (!session) {
     notFound();
   }
-  const username = session?.user?.name
-  const email = session?.user?.email
-  let typeAccount = "google"
+
+  if (session) {
+    // @ts-ignore
+    const email = session?.user?.email;
+    // @ts-ignore
+    const role = session?.user?.role;
+    let typeAccount = "google";
+    if (role === "GitHub user" || role === "admin") {
+      typeAccount = "github";
+    }
+    await connectMongoDB();
+    const user = await User.findOne({
+      email: email,
+      typeAccount: typeAccount,
+    });
+
+    if (user.banned) {
+      redirect("/banned");
+    }
+  }
+
+  const username = session?.user?.name;
+  const email = session?.user?.email;
+  let typeAccount = "google";
 
   // @ts-ignore
   if (session?.user?.role === "GitHub User" || session?.user?.role === "admin") {
-    typeAccount = "github"
+    typeAccount = "github";
   }
 
   return (
@@ -27,7 +49,11 @@ export default async function CreateQuiz() {
           <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">
             Create a New Quiz
           </h2>
-          <CreateQuizForm username={username} email={email} typeAccount={typeAccount}/>
+          <CreateQuizForm
+            username={username}
+            email={email}
+            typeAccount={typeAccount}
+          />
         </div>
       </section>
     </>

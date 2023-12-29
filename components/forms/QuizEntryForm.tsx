@@ -8,6 +8,8 @@ import TrashIcon from "../icons/TrashIcon";
 import { useFormState } from "react-dom";
 import { redirect } from "next/navigation";
 import { useState } from "react";
+import { deleteQuiz } from "@/lib/actions";
+import { useRouter } from "next/navigation";
 
 export default function QuizEntryForm({
   quizJSON,
@@ -29,6 +31,13 @@ export default function QuizEntryForm({
     } else {
       setIncorrectPassword(true);
     }
+  }
+
+  const router = useRouter()
+  async function handleDeleteQuiz() {
+    const quizId = quiz._id.toString()
+    await deleteQuiz(quizId);
+    router.push(`/user/${quiz.creatorId}`);
   }
 
   const [state, formAction] = useFormState(fetchPassword, null);
@@ -143,13 +152,14 @@ export default function QuizEntryForm({
           )}
 
           {visitorId === quiz.creatorId ? (
-            <Link
-              href={`/quiz/${quiz._id}`}
+            <button
+              onClick={handleDeleteQuiz}
+              type="button"
               className="mr-2 inline-flex justify-center items-center py-2.5 px-3 text-base font-medium text-center text-white rounded-lg bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-900"
             >
               Delete Quiz
               <TrashIcon />
-            </Link>
+            </button>
           ) : (
             ""
           )}

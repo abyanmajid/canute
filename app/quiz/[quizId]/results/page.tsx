@@ -8,13 +8,14 @@ import { notFound } from "next/navigation";
 import connectMongoDB from "@/lib/mongodb";
 import Quiz from "@/models/quiz";
 import GetResultParams from "@/components/quiz/GetResultParams";
+import { redirect } from "next/navigation";
 
 export default async function QuizResult({ params }: Params) {
   connectMongoDB();
   const quiz = await getQuiz(params.quizId);
   const quizJSON = JSON.stringify(quiz);
   const questions = await getQuestions(params.quizId);
-  const questionsJSON = JSON.stringify(questions)
+  const questionsJSON = JSON.stringify(questions);
 
   // @ts-ignore
   const session = await getServerSession(options);
@@ -32,6 +33,11 @@ export default async function QuizResult({ params }: Params) {
       email: visitorEmail,
       typeAccount: visitorTypeAccount,
     });
+
+    if (visitorUser.banned) {
+      redirect("/banned");
+    }
+
     // @ts-ignore
     visitorId = visitorUser._id.toString();
   }
@@ -42,7 +48,5 @@ export default async function QuizResult({ params }: Params) {
     }
   }
 
-  return (
-    <GetResultParams quizJSON={quizJSON} visitorId={visitorId}/>
-  );
+  return <GetResultParams quizJSON={quizJSON} visitorId={visitorId} />;
 }

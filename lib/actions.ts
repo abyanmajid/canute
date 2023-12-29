@@ -244,6 +244,12 @@ export async function deleteQuestion(questionId: string, quizId: string) {
   );
 }
 
+export async function deleteQuiz(quizId: string) {
+  "use server";
+  await connectMongoDB();
+  await Quiz.findByIdAndDelete({ _id: quizId });
+}
+
 export async function saveQuizResult(
   quizId: string,
   loggedIn: boolean,
@@ -253,8 +259,9 @@ export async function saveQuizResult(
   numOfGradedQuestions: number,
   timeTakenInSeconds: number
 ) {
-  const registeredUser = (loggedIn ? await User.findById(user) : "")
-  const registeredUsername = (registeredUser !== "" ? registeredUser.username : "")
+  const registeredUser = loggedIn ? await User.findById(user) : "";
+  const registeredUsername =
+    registeredUser !== "" ? registeredUser.username : "";
   const passkey = uuidv4();
   await connectMongoDB();
   await Quiz.findByIdAndUpdate(
@@ -304,5 +311,35 @@ export async function postOnLeaderboard(quizId: string, resultsId: string) {
       },
     }
   );
-  await redirect(`/quiz/${quizId}`)
+  await redirect(`/quiz/${quizId}`);
+}
+
+export async function findQuiz(quizCode: string) {
+  "use server";
+  await connectMongoDB();
+  let quiz = await Quiz.findOne({ code: quizCode });
+  // if (quiz === null && quizCode.length === 6) {
+  //   quiz = await Quiz.findOne({temporaryCode: quizCode})
+  // }
+  redirect(`quiz/${quiz._id.toString()}`);
+}
+
+export async function banUser(userId: string) {
+  "use server";
+  await connectMongoDB();
+  const user = await User.findByIdAndUpdate(
+    { _id: userId },
+    { $set: { banned: true } }
+  );
+  await console.log(user)
+}
+
+export async function unbanUser(userId: string) {
+  "use server";
+  await connectMongoDB();
+  const user = await User.findByIdAndUpdate(
+    { _id: userId },
+    { $set: { banned: false } }
+  );
+  await console.log(user)
 }

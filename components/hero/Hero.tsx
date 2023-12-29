@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import User from "@/models/user";
 import connectMongoDB from "@/lib/mongodb";
+import { redirect } from "next/navigation";
 
 export default async function Hero() {
   // @ts-ignore
@@ -22,12 +23,18 @@ export default async function Hero() {
       email: email,
       typeAccount: typeAccount,
     });
+
+    if (user.banned) {
+      redirect("/banned")
+    }
+
     // @ts-ignore
     userId = user._id.toString();
   }
+
   return (
     <section className="bg-center bg-no-repeat bg-home-page bg-cover h-screen">
-      <div className="px-4 mx-auto max-w-screen-xl text-center py-32 lg:py-64">
+      <div className="px-4 mx-auto max-w-screen-xl text-center py-32 lg:py-60">
         <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">
           Start by{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r to-pink-500 from-purple-500">
@@ -44,7 +51,7 @@ export default async function Hero() {
           .
         </p>
         <div className="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0">
-          <HeroForm userId={userId}/>
+          <HeroForm userId={userId} />
         </div>
       </div>
     </section>

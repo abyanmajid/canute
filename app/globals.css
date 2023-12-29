@@ -168,6 +168,38 @@ body {
   background-image: url("/about-page-background.png")
 }
 
+.bg-user-page {
+  background-image: url("/user-page-background.png")
+}
+
+.bg-quiz-entry-page {
+  background-image: url("/quiz-entry-page-background.png")
+}
+
+.bg-edit-quiz-page {
+  background-image: url("/edit-quiz-page-background.png")
+}
+
+.bg-play-quiz-page {
+  background-image: url("/play-quiz-page-background.png")
+}
+
+.bg-quiz-results-page {
+  background-image: url("/quiz-results-page-background.png")
+}
+
+.bg-questions-page {
+  background-image: url("/questions-page-background.png")
+}
+
+.bg-edit-question-page {
+  background-image: url("/edit-question-page-background.png")
+}
+
+.bg-create-question-page {
+  background-image: url("/create-question-page-background.png")
+}
+
 .separator {
   display: none;
 }

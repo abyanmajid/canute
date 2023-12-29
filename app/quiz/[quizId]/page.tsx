@@ -4,7 +4,7 @@ import { getQuiz } from "@/lib/actions";
 import User from "@/models/user";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import QuizEntryForm from "@/components/forms/QuizEntryForm";
 import { formatSecondsToTimeLong, formatTimeLong } from "@/lib/formatTime";
 import { sortedLeaderboard } from "@/lib/sortedLeaderboard";
@@ -30,6 +30,11 @@ export default async function QuizEntryPoint({ params }: Params) {
       email: visitorEmail,
       typeAccount: visitorTypeAccount,
     });
+
+    if (visitorUser.banned) {
+      redirect("/banned")
+    }
+
     // @ts-ignore
     visitorId = visitorUser._id.toString();
   }
@@ -45,7 +50,7 @@ export default async function QuizEntryPoint({ params }: Params) {
   console.log(leaderboard);
 
   return (
-    <section className="bg-center bg-no-repeat bg-about-page bg-cover h-screen overflow-y-auto">
+    <section className="bg-center bg-no-repeat bg-quiz-entry-page bg-cover h-screen overflow-y-auto">
       <div className="py-24 px-4 mx-auto max-w-screen-xl">
         <div className="border-gray-500  bg-gray-800 bg-opacity-35 border rounded-lg p-8 md:p-12 mb-8">
           <Link href={`/user/${user._id}`}>
@@ -98,7 +103,7 @@ export default async function QuizEntryPoint({ params }: Params) {
                         Player
                       </th>
                       <th scope="col" className="px-6 py-3">
-                        Medal
+                        Rank
                       </th>
                       <th scope="col" className="px-6 py-3">
                         Score
@@ -151,29 +156,7 @@ export default async function QuizEntryPoint({ params }: Params) {
                                 ""
                               )}
                             </th>
-                            <td className="px-6 py-3">
-                              {index === 0 ? (
-                                <mark className="px-1 text-white bg-yellow-600 rounded">
-                                  Gold
-                                </mark>
-                              ) : (
-                                ""
-                              )}
-                              {index === 1 ? (
-                                <mark className="px-1 text-white bg-gray-500 rounded">
-                                  Silver
-                                </mark>
-                              ) : (
-                                ""
-                              )}
-                              {index === 2 ? (
-                                <mark className="px-1 text-white bg-orange-800 rounded">
-                                  Bronze
-                                </mark>
-                              ) : (
-                                ""
-                              )}
-                            </td>
+                            <td className="px-6 py-3">{index + 1}</td>
                             <td className="px-6 py-3">
                               {Math.round(
                                 (item.numOfCorrectAnswers /
