@@ -19,10 +19,10 @@ export default async function Hero() {
       typeAccount = "github";
     }
     await connectMongoDB();
-    const user = await User.findOne({
-      email: email,
-      typeAccount: typeAccount,
-    });
+    // const user = await User.findOne({
+    //   email: email,
+    //   typeAccount: typeAccount,
+    // });
     
     const maxAttempts = 5;
     let attempts = 0
