@@ -1,7 +1,6 @@
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import connectMongoDB from "@/lib/mongodb";
-import User from "@/models/user";
 import { isEmailTaken } from "@/lib/queryUnique";
 
 export const options = {
@@ -58,7 +57,7 @@ export const options = {
         await connectMongoDB();
         const userExists = await isEmailTaken(email, typeAccount);
         if (!userExists) {
-          const res = await fetch("http://canute.vercel.app:3000/api/user", {
+          const res = await fetch("http://canute.vercel.app/api/user", {
             method: "POST",
             headers: {
               "Content-type": "application/json",
