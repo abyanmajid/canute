@@ -24,12 +24,12 @@ export default async function Hero() {
       typeAccount: typeAccount,
     });
     
-    if (user.banned) {
+    if (user && user.banned) {
       redirect("/banned")
     }
 
     // @ts-ignore
-    userId = user._id.toString();
+    userId = user !== null ? user._id.toString(); : null
   }
 
   return (
