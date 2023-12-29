@@ -26,6 +26,7 @@ export default async function Hero() {
     
     const maxAttempts = 5;
     let attempts = 0
+    let user = null
     while (user === null && attempts < maxAttempts) {
       user = await User.findOne({ email: email, typeAccount: typeAccount });
 
