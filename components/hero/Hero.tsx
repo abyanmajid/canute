@@ -31,7 +31,7 @@ export default async function Hero() {
       user = await User.findOne({ email: email, typeAccount: typeAccount });
 
       if (user === null) {
-        await new Promise(resolve => setTimeout(resolve, 1000)); // delay
+        await new Promise(resolve => setTimeout(resolve, 3000)); // delay
         attempts++;
       } else if (user.banned) {
         redirect("/banned")
