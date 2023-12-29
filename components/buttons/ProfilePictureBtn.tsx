@@ -3,10 +3,12 @@
 import Image from "next/image";
 
 export default function ProfilePictureBtn({
+  role,
   session,
   profilePicture,
   sendProfilePage,
 }: {
+  role: string;
   session: any;
   profilePicture: string;
   sendProfilePage: any;
@@ -15,8 +17,8 @@ export default function ProfilePictureBtn({
     <div>
       {session ? (
         <button
-          onClick={() => {
-            sendProfilePage();
+          onClick={async () => {
+            await sendProfilePage(role, session);
           }}
           className="flex text-smrounded-full md:me-0"
         >

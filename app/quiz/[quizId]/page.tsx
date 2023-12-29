@@ -54,7 +54,7 @@ export default async function QuizEntryPoint({ params }: Params) {
       <div className="py-24 px-4 mx-auto max-w-screen-xl">
         <div className="border-gray-500  bg-gray-800 bg-opacity-35 border rounded-lg p-8 md:p-12 mb-8">
           <Link href={`/user/${user._id}`}>
-            <span className="bg-purple-100 text-purple-800 text-sm font-medium inline-flex items-center px-2.5 py-1 rounded-md dark:bg-gray-700 dark:text-purple-400 mb-2">
+            <span className="text-sm font-medium inline-flex items-center px-2.5 py-1 rounded-md bg-gray-700 text-purple-400 mb-2">
               <svg
                 className="w-2.5 h-2.5 me-1.5 mb-1.5 mt-1"
                 aria-hidden="true"
@@ -67,37 +67,37 @@ export default async function QuizEntryPoint({ params }: Params) {
               {user.username}
             </span>
           </Link>
-          <h1 className="text-gray-900 dark:text-white text-4xl font-extrabold mb-2">
+          <h1 className="text-white text-4xl font-extrabold mb-2">
             {quiz.title}{" "}
             <mark className="px-2 text-white bg-gradient-to-r to-pink-500 from-purple-500 rounded-xl text-lg">
               {quiz.code}
             </mark>{" "}
           </h1>
-          <p className="text-lg font-normal text-gray-500 dark:text-gray-400 mb-6">
+          <p className="text-lg font-normal text-gray-400 mb-6">
             {quiz.description}
           </p>
-          <hr className="h-px my-6 bg-gray-200 border-0 dark:bg-gray-700"></hr>
-          <p className="text-lg font-normal text-gray-500 dark:text-gray-400 mb-2">
+          <hr className="h-px my-6 border-0 bg-gray-700"></hr>
+          <p className="text-lg font-normal text-gray-400 mb-2">
             <span className="font-semibold text-white">Time limit:</span>{" "}
             {formatTimeLong(quiz.time)}
           </p>
-          <p className="text-lg font-normal text-gray-500 dark:text-gray-400 mb-2">
+          <p className="text-lg font-normal text-gray-400 mb-2">
             <span className="font-semibold text-white">Questions:</span>{" "}
             {quiz.questions.length}
           </p>
           <QuizEntryForm quizJSON={quizJSON} visitorId={visitorId} />
 
-          <hr className="h-px my-6 bg-gray-200 border-0 dark:bg-gray-700"></hr>
+          <hr className="h-px my-6 border-0 bg-gray-700"></hr>
 
           <div className="px-4 mx-auto max-w-screen-xl">
             <div className="border-gray-500  bg-gray-800 bg-opacity-35 border rounded-lg p-8 md:p-12 mb-8 text-center">
-              <h1 className="text-gray-900 dark:text-white text-4xl font-extrabold mb-2">
+              <h1 className="text-white text-4xl font-extrabold mb-2">
                 Leaderboard
               </h1>
-              <hr className="h-px my-6 bg-gray-200 border-0 dark:bg-gray-700"></hr>
+              <hr className="h-px my-6 border-0 bg-gray-700"></hr>
               <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                  <thead className="text-xs dark:bg-opacity-70 text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <table className="w-full text-sm text-left rtl:text-right text-gray-400">
+                  <thead className="text-xs bg-opacity-70 uppercase bg-gray-700 text-gray-400">
                     <tr>
                       <th scope="col" className="px-6 py-3">
                         Player
@@ -122,11 +122,11 @@ export default async function QuizEntryPoint({ params }: Params) {
                         return (
                           <tr
                             key={index}
-                            className={`odd:bg-white odd:dark:bg-opacity-50 even:dark:bg-opacity-50 odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700`}
+                            className={`odd:bg-opacity-50 even:bg-opacity-50 odd:bg-gray-900  even:bg-gray-800 border-b border-gray-700`}
                           >
                             <th
                               scope="row"
-                              className="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                              className="px-6 py-3 font-medium whitespace-nowrap text-white"
                             >
                               {item.loggedIn ? (
                                 <Link

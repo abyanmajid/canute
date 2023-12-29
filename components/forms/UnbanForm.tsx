@@ -20,7 +20,7 @@ export default function UnbanForm() {
         <div>
           <label
             htmlFor="userId"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            className="block mb-2 text-sm font-medium text-white"
           >
             Unban User by ID
           </label>
@@ -28,7 +28,7 @@ export default function UnbanForm() {
             type="text"
             id="userId"
             name="userId"
-            className="bg-gray-50 border dark:bg-opacity-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500"
+            className="border bg-opacity-50 text-sm rounded-lg block w-full p-2.5 bg-gray-800 border-gray-600 placeholder-gray-400 text-white focus:ring-purple-500 focus:border-purple-500"
             placeholder="Enter User's ID here..."
             required
           />
@@ -44,7 +44,7 @@ export default function UnbanForm() {
 
       <button
         type="submit"
-        className="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800"
+        className="text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center bg-purple-600 hover:bg-purple-700 focus:ring-purple-800"
       >
         Unban
       </button>

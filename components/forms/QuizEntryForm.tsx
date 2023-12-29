@@ -58,7 +58,7 @@ export default function QuizEntryForm({
               type="text"
               id="guestName"
               name="guestName"
-              className="bg-gray-50 mb-4 border dark:bg-opacity-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-600 focus:border-purple-600 block w-72 p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500 focus:outline-none"
+              className="mb-4 border bg-opacity-50 text-sm rounded-lg block w-72 p-2.5 bg-gray-800 border-gray-600 placeholder-gray-400 text-white focus:ring-purple-500 focus:border-purple-500 focus:outline-none"
               placeholder="Enter your username here..."
               maxLength={32}
               required
@@ -79,7 +79,7 @@ export default function QuizEntryForm({
               type="password"
               id="quizPassword"
               name="quizPassword"
-              className="bg-gray-50 border dark:bg-opacity-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-600 focus:border-purple-600 block w-72 p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500 focus:outline-none"
+              className="border bg-opacity-50 text-sm rounded-lg block w-72 p-2.5 bg-gray-800 border-gray-600 placeholder-gray-400 text-white focus:ring-purple-500 focus:border-purple-500 focus:outline-none"
               placeholder="Enter the password here..."
               required
             />
@@ -97,7 +97,7 @@ export default function QuizEntryForm({
       </div>
       <div>
         {quiz.questions.length === 0 ? (
-          <p className="text-lg font-normal text-red-500 dark:text-red-400">
+          <p className="text-lg font-normal text-red-400">
             This quiz cannot be played as it has no questions!
           </p>
         ) : (
@@ -107,7 +107,7 @@ export default function QuizEntryForm({
           {quiz.questions.length !== 0 ? (
             <button
               type="submit"
-              className="inline-flex justify-center items-center py-2.5 px-5 text-base font-medium text-center text-white rounded-lg bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 dark:focus:ring-purple-900"
+              className="inline-flex justify-center items-center py-2.5 px-5 text-base font-medium text-center text-white rounded-lg bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-900"
             >
               <OpenBookIcon />
               Play
@@ -117,7 +117,7 @@ export default function QuizEntryForm({
           )}
           {quiz.questions.length === 0 ? (
             <button
-              className="mr-2 inline-flex justify-center items-center py-2.5 px-5 text-base font-medium text-center bg-opacity-50 text-opacity-50 text-white rounded-lg bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 dark:focus:ring-purple-900"
+              className="mr-2 inline-flex justify-center items-center py-2.5 px-5 text-base font-medium text-center bg-opacity-50 text-opacity-50 text-white rounded-lg bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-900"
               disabled
             >
               <OpenBookIcon />
@@ -130,7 +130,7 @@ export default function QuizEntryForm({
           {visitorId === quiz.creatorId ? (
             <Link
               href={`/quiz/${quiz._id}/edit`}
-              className="mr-2 inline-flex justify-center items-center py-2.5 px-3 text-base font-medium text-center text-white rounded-lg bg-pink-600 hover:bg-pink-700 focus:ring-4 focus:ring-pink-300 dark:focus:ring-pink-800"
+              className="mr-2 inline-flex justify-center items-center py-2.5 px-3 text-base font-medium text-center text-white rounded-lg bg-pink-600 hover:bg-pink-700 focus:ring-4 focus:ring-pink-800"
             >
               Edit
               <PenIcon />
@@ -142,7 +142,7 @@ export default function QuizEntryForm({
           {visitorId === quiz.creatorId ? (
             <Link
               href={`/quiz/${quiz._id}/questions`}
-              className="mr-2 inline-flex justify-center items-center py-2.5 px-3 text-base font-medium text-center text-white rounded-lg bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900"
+              className="mr-2 inline-flex justify-center items-center py-2.5 px-3 text-base font-medium text-center text-white rounded-lg bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-900"
             >
               <PlusIcon />
               Add/Delete Question
@@ -155,7 +155,7 @@ export default function QuizEntryForm({
             <button
               onClick={handleDeleteQuiz}
               type="button"
-              className="mr-2 inline-flex justify-center items-center py-2.5 px-3 text-base font-medium text-center text-white rounded-lg bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-900"
+              className="mr-2 inline-flex justify-center items-center py-2.5 px-3 text-base font-medium text-center text-white rounded-lg bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-900"
             >
               Delete Quiz
               <TrashIcon />

@@ -62,7 +62,7 @@ export default function EditQuizForm({ quizJSON }: { quizJSON: any }) {
           <div className="sm:col-span-2">
             <label
               htmlFor="title"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              className="block mb-2 text-sm font-medium text-white"
             >
               Title
             </label>
@@ -72,7 +72,7 @@ export default function EditQuizForm({ quizJSON }: { quizJSON: any }) {
               type="text"
               name="title"
               id="title"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-600 focus:border-purple-600 block w-full p-2.5 dark:bg-opacity-50 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500 focus:outline-none"
+              className=" border text-sm rounded-lg block w-full p-2.5 bg-opacity-50 bg-gray-800 border-gray-600 placeholder-gray-400 text-white focus:ring-purple-500 focus:border-purple-500 focus:outline-none"
               placeholder="Title of the quiz"
               required
             />
@@ -80,7 +80,7 @@ export default function EditQuizForm({ quizJSON }: { quizJSON: any }) {
           <div className="sm:col-span-2">
             <label
               htmlFor="description"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              className="block mb-2 text-sm font-medium text-white"
             >
               Description
             </label>
@@ -89,7 +89,7 @@ export default function EditQuizForm({ quizJSON }: { quizJSON: any }) {
               value={description}
               id="description"
               name="description"
-              className="dark:bg-opacity-50 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-purple-500 focus:border-purple-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500 focus:outline-none"
+              className="bg-opacity-50 block p-2.5 w-full text-sm rounded-lg border bg-gray-800 border-gray-600 placeholder-gray-400 text-white focus:ring-purple-500 focus:border-purple-500 focus:outline-none"
               placeholder="Description of the quiz"
             ></textarea>
           </div>
@@ -97,14 +97,14 @@ export default function EditQuizForm({ quizJSON }: { quizJSON: any }) {
             <div className="sm:col-span-2 mb-6">
               <label
                 htmlFor="time"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-sm font-medium text-white"
               >
                 Time limit
               </label>
               <select
                 id="time"
                 name="time"
-                className="bg-gray-50 border dark:bg-opacity-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-300 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500 focus:outline-none"
+                className="border bg-opacity-50 text-sm rounded-lg block w-full p-2.5 bg-gray-800 border-gray-600 placeholder-gray-300 text-white focus:ring-purple-500 focus:border-purple-500 focus:outline-none"
                 value={time}
                 onChange={handleTimeChange}
               >
@@ -155,14 +155,14 @@ export default function EditQuizForm({ quizJSON }: { quizJSON: any }) {
             <div className="sm:col-span-2">
               <label
                 htmlFor="visibility"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-sm font-medium text-white"
               >
                 Visibility
               </label>
               <select
                 id="visibility"
                 name="visibility"
-                className="bg-gray-50 border dark:bg-opacity-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-300 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500 focus:outline-none"
+                className="border bg-opacity-50 text-sm rounded-lg block w-full p-2.5 bg-gray-800 border-gray-600 placeholder-gray-300 text-white focus:ring-purple-500 focus:border-purple-500 focus:outline-none"
                 value={visibility}
                 onChange={handleVisibilityChange}
               >
@@ -181,7 +181,7 @@ export default function EditQuizForm({ quizJSON }: { quizJSON: any }) {
               <div className="sm:col-span-2">
                 <label
                   htmlFor="password"
-                  className="block mb-2 mt-6 dark:bg-opacity-50 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-2 mt-6 bg-opacity-50 text-sm font-medium text-white"
                 >
                   Password
                 </label>
@@ -189,7 +189,7 @@ export default function EditQuizForm({ quizJSON }: { quizJSON: any }) {
                   type="password"
                   name="password"
                   id="password"
-                  className="bg-gray-50 border dark:bg-opacity-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-600 focus:border-purple-600 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500 focus:outline-none"
+                  className="border bg-opacity-50 text-sm rounded-lg block w-full p-2.5 bg-gray-800 border-gray-600 placeholder-gray-400 text-white focus:ring-purple-500 focus:border-purple-500 focus:outline-none"
                   placeholder="Password to access the quiz"
                   required
                 />
@@ -199,14 +199,14 @@ export default function EditQuizForm({ quizJSON }: { quizJSON: any }) {
         </div>
         <button
           type="submit"
-          className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-purple-700 rounded-lg focus:ring-4 focus:ring-purple-200 dark:focus:ring-transparent hover:bg-purple-800"
+          className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-purple-700 rounded-lg focus:ring-4 focus:ring-purple-200 focus:ring-transparent hover:bg-purple-800"
         >
           Edit <PenIcon />
         </button>
         <Link href={`/user/${quiz.creatorId}`}>
           <button
             type="button"
-            className="text-purple-700 mx-2 hover:text-white border border-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-800 dark:hover:border-transparent dark:focus:ring-transparent"
+            className="mx-2 border focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 border-purple-400 text-purple-400 hover:text-white hover:bg-purple-800 hover:border-transparent focus:ring-transparent"
           >
             Cancel
           </button>

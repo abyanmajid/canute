@@ -78,7 +78,7 @@ export default async function Profile({ params }: Params) {
             width={150}
             height={150}
           />
-          <h1 className="text-gray-900 dark:text-white text-4xl font-extrabold mb-2">
+          <h1 className="text-white text-4xl font-extrabold mb-2">
             {username}{" "}
             {email === "abyan@abydyl.net" && typeAccount === "github" ? (
               <mark className="px-2 text-white bg-gradient-to-r from-cyan-400 to-blue-400 rounded-xl mr-2">
@@ -95,7 +95,7 @@ export default async function Profile({ params }: Params) {
               ""
             )}
           </h1>
-          <p className="text-lg font-normal text-gray-500 dark:text-gray-400 mb-6">
+          <p className="text-lg font-normal text-gray-400 mb-6">
             {formatDate(createdAt)}
           </p>
           {visitorId === userId ? (
@@ -109,13 +109,13 @@ export default async function Profile({ params }: Params) {
           ) : (
             ""
           )}
-          <hr className="h-px my-6 bg-gray-200 border-0 dark:bg-gray-700"></hr>
+          <hr className="h-px my-6 border-0 bg-gray-700"></hr>
           <div className="mb-6">
-            <h2 className="text-gray-900 dark:text-white text-xl font-semibold mb-2">
+            <h2 className="text-white text-xl font-semibold mb-2">
               {username}&apos;s Quizzes
             </h2>
             {quizArray.length === 0 ? (
-              <p className="text-lg font-normal text-gray-500 dark:text-gray-400 mb-6">
+              <p className="text-lg font-normal text-gray-400 mb-6">
                 {username} has not created any quizzes.
               </p>
             ) : (
@@ -135,13 +135,13 @@ export default async function Profile({ params }: Params) {
                 key={index}
                 className="border-gray-500 bg-gray-800 bg-opacity-35 border rounded-lg p-8 mb-8"
               >
-                <h2 className="text-gray-900 dark:text-white text-xl font-semibold mb-2">
+                <h2 className="text-white text-xl font-semibold mb-2">
                   {quiz.title}{" "}
                   <mark className="px-2 text-white bg-gradient-to-r to-pink-500 from-purple-500 rounded-xl">
                     {quiz.code}
                   </mark>{" "}
                 </h2>
-                <p className="text-lg font-normal text-gray-500 dark:text-gray-400 mb-6">
+                <p className="text-lg font-normal text-gray-400 mb-6">
                   {quiz.description}
                 </p>
                 <p className="text-sm font-normal text-gray-400 mb-6">
@@ -161,7 +161,7 @@ export default async function Profile({ params }: Params) {
                 <div className="flex items-center">
                   <Link
                     href={`/quiz/${quiz._id}`}
-                    className="mr-2 inline-flex justify-center items-center py-2.5 px-3 text-base font-medium text-center text-white rounded-lg bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 dark:focus:ring-purple-900"
+                    className="mr-2 inline-flex justify-center items-center py-2.5 px-3 text-base font-medium text-center text-white rounded-lg bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-900"
                   >
                     <OpenBookIcon />
                     Play

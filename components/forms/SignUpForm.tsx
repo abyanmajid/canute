@@ -19,7 +19,7 @@ export default function SignUpForm() {
     const banned = false;
 
     const usernameTaken = await isUsernameTaken(username);
-    const emailTaken = await isEmailTaken(email);
+    const emailTaken = await isEmailTaken(email, typeAccount);
     const profaneUsername = await isProfane(username);
     console.log(profaneUsername)
 

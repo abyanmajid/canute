@@ -39,10 +39,10 @@ export default async function Admin() {
       <section className="bg-center bg-no-repeat bg-about-page bg-cover h-screen">
         <div id="about" className="px-4 mx-auto max-w-screen-xl py-32">
           <div className="border-gray-500  bg-gray-800 bg-opacity-35 border rounded-lg p-8 md:p-12 mb-8">
-            <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+            <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl text-white">
               Admin Panel{" "}
             </h1>
-            <hr className="h-px my-6 bg-gray-200 border-0 dark:bg-gray-700"></hr>
+            <hr className="h-px my-6 border-0 bg-gray-700"></hr>
             <div className="mb-4">
               <BanForm />
             </div>

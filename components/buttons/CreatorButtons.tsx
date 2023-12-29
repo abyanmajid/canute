@@ -26,7 +26,7 @@ export default function CreatorButtons({
       {visitorId === creatorId ? (
         <Link
           href={`/quiz/${quizId}`}
-          className="mr-2 inline-flex justify-center items-center py-2.5 px-3 text-base font-medium text-center text-white rounded-lg bg-pink-600 hover:bg-pink-700 focus:ring-4 focus:ring-pink-300 dark:focus:ring-pink-800"
+          className="mr-2 inline-flex justify-center items-center py-2.5 px-3 text-base font-medium text-center text-white rounded-lg bg-pink-600 hover:bg-pink-700 focus:ring-4 focus:ring-pink-800"
         >
           Edit
           <PenIcon />
@@ -38,7 +38,7 @@ export default function CreatorButtons({
         <button
           onClick={handleDeleteQuiz}
           type="button"
-          className="mr-2 inline-flex justify-center items-center py-2.5 px-3 text-base font-medium text-center text-white rounded-lg bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-900"
+          className="mr-2 inline-flex justify-center items-center py-2.5 px-3 text-base font-medium text-center text-white rounded-lg bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-900"
         >
           Delete
           <TrashIcon />

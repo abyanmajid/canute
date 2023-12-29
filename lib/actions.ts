@@ -343,3 +343,17 @@ export async function unbanUser(userId: string) {
   );
   await console.log(user)
 }
+
+export async function sendProfilePage(role: string, session: any) {
+  "use server";
+  let typeAccount = "google";
+  if (role === "GitHub User" || role === "admin") {
+    typeAccount = "github";
+  }
+  await connectMongoDB();
+  const user = await User.findOne({
+    email: session?.user?.email,
+    typeAccount: typeAccount,
+  });
+  redirect(`/user/${user._id}`);
+}

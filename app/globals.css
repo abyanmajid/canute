@@ -14,6 +14,18 @@ body {
   font-family: Inter;
 }
 
+@media (max-width: 767px) {
+  .custom-sm\:bg-gray-800 {
+    background-color: #1F2937;
+  }
+  .custom-sm\:rounded-lg {
+    border-radius: 1rem;
+  }
+  .custom-sm\:bg-opacity-50 {
+    --tw-bg-opacity: 0.5;
+  }
+}
+
 @layer utilities {
   .btn_white {
     @apply border-white bg-white px-8 py-3 text-green-50;

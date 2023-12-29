@@ -33,7 +33,7 @@ export default function HeroForm({userId}: {userId: string}) {
         </div>
         <button
           type="submit"
-          className="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-purple-700 rounded-lg border border-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-transparent dark:bg-purple-600 dark:hover:bg-purple-700"
+          className="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white rounded-lg border border-purple-700 focus:ring-4 focus:outline-none focus:ring-transparent bg-purple-600 hover:bg-purple-700"
         >
           <OpenBookIcon />
           Play

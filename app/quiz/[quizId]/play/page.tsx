@@ -5,6 +5,7 @@ import { notFound, redirect } from "next/navigation";
 import User from "@/models/user";
 import { getServerSession } from "next-auth";
 import { options } from "@/app/api/auth/[...nextauth]/options";
+import connectMongoDB from "@/lib/mongodb";
 
 export default async function PlayQuiz({ params }: Params) {
   const { quizId } = params;
@@ -28,6 +29,7 @@ export default async function PlayQuiz({ params }: Params) {
     if (visitorRole === "GitHub user" || visitorRole === "admin") {
       visitorTypeAccount = "github";
     }
+    await connectMongoDB();
     const visitorUser = await User.findOne({
       email: visitorEmail,
       typeAccount: visitorTypeAccount,
@@ -51,13 +53,13 @@ export default async function PlayQuiz({ params }: Params) {
     <section className="bg-center bg-no-repeat bg-play-quiz-page bg-cover h-screen overflow-y-auto">
       <div className="py-24 px-4 mx-auto max-w-screen-xl lg:py-28">
         <div className="border-gray-500  bg-gray-800 bg-opacity-35 border rounded-lg p-8 md:p-12 mb-8">
-          <h1 className="text-gray-900 dark:text-white text-4xl font-extrabold mb-2">
+          <h1 className="text-white text-4xl font-extrabold mb-2">
             {quiz.title}
           </h1>
-          <p className="text-lg font-normal text-gray-500 dark:text-gray-400 mb-6">
+          <p className="text-lg font-normal text-gray-400 mb-6">
             {quiz.description}
           </p>
-          <hr className="h-px my-6 bg-gray-200 border-0 dark:bg-gray-700"></hr>
+          <hr className="h-px my-6 border-0 bg-gray-700"></hr>
           <QuizForm
             quizId={quizId}
             questions={questions}

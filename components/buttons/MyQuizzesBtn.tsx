@@ -2,19 +2,23 @@
 
 export default function MyQuizzesBtn({
   session,
+  role,
   sendProfilePage,
 }: {
   session: any;
+  role: string;
   sendProfilePage: any;
 }) {
   return (
+    <>
     <div>
       {session ? (
         <li>
           <button
             onClick={() => {
-              sendProfilePage()}}
-            className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-purple-700 md:p-0 md:dark:hover:text-purple-500 dark:text-white dark:hover:text-white "
+              sendProfilePage(role, session);
+            }}
+            className="block py-2 px-3 w-full text-left rounded hover:bg-purple-600 md:hover:bg-transparent md:p-0 md:hover:text-purple-500 text-white hover:text-white "
           >
             My Quizzes
           </button>
@@ -22,6 +26,7 @@ export default function MyQuizzesBtn({
       ) : (
         ""
       )}
-    </div>
+      </div>
+    </>
   );
 }
