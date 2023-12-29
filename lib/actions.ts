@@ -108,7 +108,7 @@ export async function editQuiz(
 
 export async function getQuizByFetch(quizId: string) {
   try {
-    const res = await fetch(`http://localhost:3000/api/quiz/${quizId}`, {
+    const res = await fetch(`http://canute.vercel.app/api/quiz/${quizId}`, {
       cache: "no-store",
     });
 
@@ -124,7 +124,7 @@ export async function getQuizByFetch(quizId: string) {
 
 export async function getQuestionsByFetch(quizId: string) {
   try {
-    const res = await fetch(`http://localhost:3000/api/quiz/${quizId}/play`, {
+    const res = await fetch(`http://canute.vercel.app/api/quiz/${quizId}/play`, {
       cache: "no-store",
     });
 
