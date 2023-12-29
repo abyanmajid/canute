@@ -29,7 +29,7 @@ export default async function Hero() {
     }
 
     // @ts-ignore
-    userId = user !== null ? user._id.toString(); : null
+    userId = user !== null ? user._id.toString() : null
   }
 
   return (
