@@ -27,19 +27,24 @@ export default async function Hero() {
     const maxAttempts = 5;
     let attempts = 0
     let user = null
-    while (user === null && attempts < maxAttempts) {
-      user = await User.findOne({ email: email, typeAccount: typeAccount });
+    // while (user === null && attempts < maxAttempts) {
+    //   user = await User.findOne({ email: email, typeAccount: typeAccount });
 
-      if (user === null) {
-        await new Promise(resolve => setTimeout(resolve, 3000)); // delay
-        attempts++;
-      } else if (user.banned) {
-        redirect("/banned")
-      }
-    }
-    // if (user.banned) {
-    //   redirect("/banned")
+    //   if (user === null) {
+    //     await new Promise(resolve => setTimeout(resolve, 3000)); // delay
+    //     attempts++;
+    //   } else if (user.banned) {
+    //     redirect("/banned")
+    //   }
     // }
+
+    while (user === null) {
+      user = await User.findOne({ email: email, typeAccount: typeAccount });
+    }
+    
+    if (user.banned) {
+      redirect("/banned")
+    }
 
     // @ts-ignore
     userId = user._id.toString();
