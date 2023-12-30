@@ -8,7 +8,7 @@ import { getServerSession } from "next-auth";
 
 export const metadata: Metadata = {
   title: "Canute",
-  description: "Description",
+  description: "Turing-complete quiz-making application",
 };
 
 export default async function RootLayout({
