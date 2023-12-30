@@ -148,7 +148,7 @@ export default async function QuizEntryPoint({ params }: Params) {
                                   Guest
                                 </mark>
                               )}
-                              {item.user === "65893d4130e063bd448fa980" ? (
+                              {item.user === "658fb99d842552f64e44842a" ? (
                                 <mark className="text-white px-1 bg-gradient-to-r from-cyan-400 to-blue-400 rounded">
                                   Developer
                                 </mark>
