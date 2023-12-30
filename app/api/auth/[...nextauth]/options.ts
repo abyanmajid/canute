@@ -57,6 +57,7 @@ export const options = {
         await connectMongoDB();
         const userExists = await isEmailTaken(email, typeAccount);
         if (!userExists) {
+          console.log("=======", name, email, typeAccount)
           const res = await fetch("http://canute.vercel.app/api/user", {
             method: "POST",
             headers: {
@@ -68,7 +69,7 @@ export const options = {
               typeAccount: typeAccount,
             }),
           });
-          console.log("RES:", res);
+          console.log("===== RES:", res);
           if (res.ok) {
             return user;
           }
