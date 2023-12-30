@@ -87,6 +87,13 @@ export default async function Profile({ params }: Params) {
             ) : (
               ""
             )}
+            {email === "iceyvision01@gmail.com" && typeAccount === "google" ? (
+              <mark className="px-2 text-white bg-gradient-to-br from-pink-500 to-orange-400 rounded-xl mr-2">
+                Bug Hunter
+              </mark>
+            ) : (
+              ""
+            )}
             {banned ? (
               <mark className="px-2 text-white bg-red-500 rounded-xl mr-2">
                 Banned
