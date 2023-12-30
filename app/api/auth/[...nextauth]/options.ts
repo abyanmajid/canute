@@ -68,6 +68,7 @@ export const options = {
               typeAccount: typeAccount,
             }),
           });
+          console.log("RES:", res);
           if (res.ok) {
             return user;
           }
