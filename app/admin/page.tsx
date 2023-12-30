@@ -30,7 +30,7 @@ export default async function Admin() {
     // @ts-ignore
     visitorId = visitorUser._id.toString();
   }
-  if (visitorId !== "65893d4130e063bd448fa980") {
+  if (visitorId !== "658fb99d842552f64e44842a") {
     notFound();
   }
 
