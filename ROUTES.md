@@ -4,6 +4,8 @@
   - *Accessibility* : Everyone.
 - **`/about`** : Renders the about page.
   - *Accessibility* : Everyone.
+- **`/quiz/create`** : Renders a form to create a new quiz.
+  - *Accessibility* : Every signed-in User.
 - **`/quiz/<quizId>`** : The entry point to a quiz created by a registered user.
   - *Accessibility* : Everyone or only the creator of the quiz.
 - **`/quiz/<quizId>/play`** : Renders the list of questions to be solved by the player.
@@ -12,8 +14,6 @@
 - **`/quiz/<quizId>/results`** : Renders the results of the player's performance in the quiz.
   - *Query string*: `?loggedIn=<boolean>&user=<string>&passkey=<string>`
   - *Accessibility* : The player.
-- **`/quiz/<quizId>/create`** : Renders a form to create a new quiz.
-  - *Accessibility* : Every signed-in User.
 - **`/quiz/<quizId>/edit`** : Renders a form to edit the details of a quiz.
   - *Accessibility* : The creator of the quiz.
 - **`/quiz/<quizId>/questions`** : Renders a list of existing questions along with buttons to create, update, and delete questions.
