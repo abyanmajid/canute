@@ -6,6 +6,7 @@ Quiz-making web application built in Next.js with Auth.js, Tailwind CSS, and Mon
 
 #### More information
 - [List of Routes](https://github.com/abyanmajid/canute/blob/main/ROUTES.md)
+- [Preview of Pages](https://github.com/abyanmajid/canute/blob/main/PAGES-PREVIEW.md)
 - [License](https://github.com/abyanmajid/canute/blob/main/LICENSE)
 
 ---
