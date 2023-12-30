@@ -2,6 +2,7 @@ import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import connectMongoDB from "@/lib/mongodb";
 import { isEmailTaken } from "@/lib/queryUnique";
+import { registerUser } from "@/lib/actions";
 
 export const options = {
   providers: [
@@ -58,21 +59,22 @@ export const options = {
         const userExists = await isEmailTaken(email, typeAccount);
         if (!userExists) {
           console.log("=======", name, email, typeAccount)
-          const res = await fetch("http://canute.vercel.app/api/user", {
-            method: "POST",
-            headers: {
-              "Content-type": "application/json",
-            },
-            body: JSON.stringify({
-              username: name,
-              email: email,
-              typeAccount: typeAccount,
-            }),
-          });
-          console.log("===== RES:", res);
-          if (res.ok) {
-            return user;
-          }
+          // const res = await fetch("http://canute.vercel.app/api/user", {
+          //   method: "POST",
+          //   headers: {
+          //     "Content-type": "application/json",
+          //   },
+          //   body: JSON.stringify({
+          //     username: name,
+          //     email: email,
+          //     typeAccount: typeAccount,
+          //   }),
+          // });
+          // console.log("===== RES:", res);
+          // if (res.ok) {
+          await registerUser(name, email, typeAccount)
+          return user;
+          // }
         }
       } catch (error) {
         console.log(error);
