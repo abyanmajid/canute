@@ -357,3 +357,13 @@ export async function sendProfilePage(role: string, session: any) {
   });
   redirect(`/user/${user._id}`);
 }
+
+export async function registerUser(
+  username: string,
+  email: string,
+  typeAccount: string
+) {
+  "use server";
+  await connectMongoDB();
+  await User.create({ username, email, typeAccount });
+}
