@@ -5,6 +5,7 @@
 Quiz-making web application built in Next.js with Server Actions-leveraging backend, and MongoDB.
 
 ### View the live application at [canute.vercel.app](https://canute.vercel.app)
+#### Sample quiz: [`kinderheim511#MOYREL`](https://canute.vercel.app/quiz/65d4814e737fea8e1764572c)
 
 #### More information
 - [List of Routes](https://github.com/abyanmajid/canute/blob/main/ROUTES.md)
